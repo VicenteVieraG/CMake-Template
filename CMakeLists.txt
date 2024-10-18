@@ -1,15 +1,19 @@
-cmake_minimum_required(VERSION 3.24.1)
+# Main CMake file
 
+#! CMake minimum version. Make that your current CMake version is greater than this.
+cmake_minimum_required(VERSION 3.30.5)
+
+# Project name, version and languages
+#! Change the project name and version here
 project(MY_PROJECT VERSION 0.0.0 LANGUAGES C CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+# Configure build options
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Compiler paths and executable output folder declaration
-set(CMAKE_C_COMPILER C:\\mingw64\\bin\\clang)
-set(CMAKE_CXX_COMPILER C:\\mingw64\\bin\\clang++)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}\\bin)
+# Create binary outputs at ./build/bin
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Subdirectories
 add_subdirectory(config)
