@@ -1,7 +1,7 @@
 # Main CMake file
 
 #! CMake minimum version. Make that your current CMake version is greater than this.
-cmake_minimum_required(VERSION 3.30.5)
+cmake_minimum_required(VERSION 3.31.4)
 
 # Project name, version and languages
 #! Change the project name and version here
