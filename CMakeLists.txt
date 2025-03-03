@@ -1,7 +1,7 @@
 # Main CMake file
 
-#! CMake minimum version. Make that your current CMake version is greater than this.
-cmake_minimum_required(VERSION 3.31.4)
+#! CMake minimum version. Make that your current CMake version is greater than this
+cmake_minimum_required(VERSION 3.31.6)
 
 # Project name, version and languages
 #! Change the project name and version here
@@ -16,6 +16,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # Subdirectories
+#! NOTE: The add_subdirectory order matters
 add_subdirectory(config)
 add_subdirectory(external)
 add_subdirectory(src)
