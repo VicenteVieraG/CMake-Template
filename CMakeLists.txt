@@ -1,7 +1,7 @@
 # Main CMake file
 
 #! CMake minimum version. Make that your current CMake version is greater than this
-cmake_minimum_required(VERSION 4.0.3)
+cmake_minimum_required(VERSION 4.1.2)
 
 # Project name, version and languages
 #! Change the project name and version here
@@ -22,3 +22,4 @@ add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(include)
 add_subdirectory(app)
+
