@@ -43,7 +43,7 @@ You can install CMake in different ways:
   ```
 ### Build kits
 CMake requires a build kit to create all the necessary files, folders and configurations for the project. The build kits include a C/C++ compiler, linker, debugger and other tools that are necessary for the project to be built.
-#### minGW
+#### MinGW
 - [Scoop](https://scoop.sh)
   ```shell
     scoop bucket add main
@@ -74,4 +74,5 @@ This build kit can only be installed through the Visual Studio installer. You ne
     ```shell
       winget install -e --id Microsoft.VisualStudio.2022.Community.Preview
     ```
+
   - [Visual Studio official website](https://visualstudio.microsoft.com/es/downloads/)
