@@ -1,6 +1,6 @@
 # Main CMake file
 
-#! CMake minimum version. Make that your current CMake version is greater than this
+#! CMake minimum version. Make sure your current CMake version is greater than this
 cmake_minimum_required(VERSION 4.2.3)
 
 # Project name, version and languages
@@ -14,6 +14,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Create binary outputs at ./build/bin
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+# Set the module path to include custom CMake modules (.cmake files)
+set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+
+# Modules include
+include(Docs)
 
 # Subdirectories
 #! NOTE: The add_subdirectory order matters
