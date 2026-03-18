@@ -1,6 +1,6 @@
 # Main CMake file
 
-#! CMake minimum version. Make sure your current CMake version is greater than this
+#! CMake minimum version. Make sure your current CMake version is equal or greater than this
 cmake_minimum_required(VERSION 4.2.3)
 
 # Project name, version and languages
@@ -19,10 +19,14 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
 # Options
 option(BUILD_TESTS "Build Catch2 unit tests." OFF)
-option(BUILD_TESTS_WITH_MAIN "Build Cacth2 Tests with custom main function." OFF)
+option(BUILD_TESTS_WITH_MAIN "Build Catch2 Tests with custom main function." ON)
 
 # Modules include
 include(Docs)
+if(BUILD_TESTS)
+    include(CTest)
+    enable_testing()
+endif()
 
 # Subdirectories
 #! NOTE: The add_subdirectory order matters
@@ -31,6 +35,4 @@ add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(include)
 add_subdirectory(app)
-add_subdirectory(test)
-
-
+add_subdirectory(tests)
