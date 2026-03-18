@@ -17,6 +17,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 # Set the module path to include custom CMake modules (.cmake files)
 set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
+# Options
+option(BUILD_TESTS "Build Catch2 unit tests." OFF)
+option(BUILD_TESTS_WITH_MAIN "Build Cacth2 Tests with custom main function." OFF)
+
 # Modules include
 include(Docs)
 
@@ -27,5 +31,6 @@ add_subdirectory(external)
 add_subdirectory(src)
 add_subdirectory(include)
 add_subdirectory(app)
+add_subdirectory(test)
 
 
