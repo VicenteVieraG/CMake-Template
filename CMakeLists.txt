@@ -22,6 +22,9 @@ option(BUILD_TESTS "Build Catch2 unit tests." OFF)
 option(BUILD_TESTS_WITH_MAIN "Build Catch2 Tests with custom main function." ON)
 option(ENABLE_WARNINGS "Enable compiler warnings." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable compiler warnings as errors." OFF)
+option(ENABLE_SANITIZERS "Enable a set of sanitizers" OFF)
+set(SANITIZER_PRESET "default" CACHE STRING "Sanitizer preset to enable")
+set_property(CACHE SANITIZER_PRESET PROPERTY STRINGS default thread memory leak)
 
 # Modules include
 include(Docs)
@@ -32,7 +35,12 @@ endif()
 if(ENABLE_WARNINGS)
     include(Warnings)
 endif()
-
+if(ENABLE_SANITIZERS)
+    include(Sanitizer)
+    enable_sanitizers()
+else()
+    message(STATUS "Sanitizers disabled.")
+endif()
 
 # Subdirectories
 #! NOTE: The add_subdirectory order matters
