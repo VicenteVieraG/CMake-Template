@@ -32,7 +32,7 @@ GENERATE_LATEX          = NO
 # Configuration options related to the input files
 #---------------------------------------------------------------------------
 INPUT                  =    ../src \
-INPUT                       ../include \
+INPUT                       ../includes \
 INPUT                       ../app
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.c \
