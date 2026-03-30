@@ -20,6 +20,8 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 # Options
 option(BUILD_TESTS "Build Catch2 unit tests." OFF)
 option(BUILD_TESTS_WITH_MAIN "Build Catch2 Tests with custom main function." ON)
+option(ENABLE_WARNINGS "Enable compiler warnings." ON)
+option(ENABLE_WARNINGS_AS_ERRORS "Enable compiler warnings as errors." OFF)
 
 # Modules include
 include(Docs)
@@ -27,6 +29,10 @@ if(BUILD_TESTS)
     include(CTest)
     enable_testing()
 endif()
+if(ENABLE_WARNINGS)
+    include(Warnings)
+endif()
+
 
 # Subdirectories
 #! NOTE: The add_subdirectory order matters
