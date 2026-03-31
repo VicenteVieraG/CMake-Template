@@ -25,6 +25,7 @@ option(ENABLE_WARNINGS_AS_ERRORS "Enable compiler warnings as errors." OFF)
 option(ENABLE_SANITIZERS "Enable a set of sanitizers" OFF)
 set(SANITIZER_PRESET "default" CACHE STRING "Sanitizer preset to enable")
 set_property(CACHE SANITIZER_PRESET PROPERTY STRINGS default thread memory leak)
+option(ENABLE_LTO_GLOBALY "Enable LTO/IPO globally for Release and RelWithDebInfo targets" OFF)
 
 # Modules include
 include(Docs)
@@ -41,6 +42,7 @@ if(ENABLE_SANITIZERS)
 else()
     message(STATUS "Sanitizers disabled.")
 endif()
+include(LTO)
 
 # Subdirectories
 #! NOTE: The add_subdirectory order matters
