@@ -1,0 +1,33 @@
+---
+Checks: >-
+  clang-analyzer-*,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-exception-escape,
+  -bugprone-implicit-widening-of-multiplication-result,
+  -bugprone-narrowing-conversions,
+  performance-*,
+  portability-*,
+  modernize-use-nullptr,
+  modernize-use-override,
+  modernize-use-using,
+  -modernize-pass-by-value,
+  -modernize-use-trailing-return-type,
+  readability-duplicate-include,
+  readability-else-after-return,
+  readability-misleading-indentation,
+  readability-redundant-declaration,
+  readability-redundant-member-init,
+  readability-simplify-boolean-expr,
+  -readability-function-cognitive-complexity,
+  -readability-function-size,
+  -readability-identifier-length,
+  -readability-magic-numbers
+WarningsAsErrors: ''
+# Only emit diagnostics from first-party headers. This excludes vendored Catch2
+# and generated files under the build directory.
+HeaderFilterRegex: '^.*(/app/|/src/|/includes/|/config/|/tests/(?!catch2/)).*$'
+FormatStyle: none
+SystemHeaders: false
+CheckOptions: []
+...

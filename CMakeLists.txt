@@ -20,6 +20,7 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 # Options
 option(BUILD_TESTS "Build Catch2 unit tests." OFF)
 option(BUILD_TESTS_WITH_MAIN "Build Catch2 Tests with custom main function." ON)
+option(ENABLE_CLANG_TIDY "Enable clang-tidy static analysis." OFF)
 option(ENABLE_WARNINGS "Enable compiler warnings." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable compiler warnings as errors." OFF)
 option(ENABLE_SANITIZERS "Enable a set of sanitizers" OFF)
@@ -29,6 +30,7 @@ option(ENABLE_LTO_GLOBALY "Enable LTO/IPO globally for Release and RelWithDebInf
 
 # Modules include
 include(Docs)
+include(ClangTidy)
 if(BUILD_TESTS)
     include(CTest)
     enable_testing()

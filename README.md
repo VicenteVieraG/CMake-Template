@@ -76,3 +76,13 @@ This build kit can only be installed through the Visual Studio installer. You ne
     ```
 
   - [Visual Studio official website](https://visualstudio.microsoft.com/es/downloads/)
+
+### Clang-Tidy
+This template includes an opt-in root `.clang-tidy` configuration. You can enable `clang-tidy` during the build with:
+
+```shell
+cmake -S . -B build -DENABLE_CLANG_TIDY=ON
+cmake --build build
+```
+
+Only targets that explicitly call `target_enable_clang_tidy(<target>)` are analyzed.
