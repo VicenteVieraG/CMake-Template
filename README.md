@@ -86,3 +86,10 @@ cmake --build build
 ```
 
 Only targets that explicitly call `target_enable_clang_tidy(<target>)` are analyzed.
+
+If you prefer to analyze every C/C++ target without adding per-target calls, enable the global mode:
+
+```shell
+cmake -S . -B build -DENABLE_CLANG_TIDY=ON -DENABLE_CLANG_TIDY_GLOBAL=ON
+cmake --build build
+```
