@@ -1,5 +1,9 @@
+if(NOT ENABLE_WARNINGS)
+    message(STATUS "Compiler warnings module loaded with ENABLE_WARNINGS=OFF.")
+endif()
+
 function(target_set_warnings TARGET ENABLED ENABLED_AS_ERRORS)
-    if (NOT ${ENABLED})
+    if (NOT ENABLE_WARNINGS OR NOT ${ENABLED})
         message(STATUS "Warnings Disabled for: ${TARGET}")
         return()
     endif()
