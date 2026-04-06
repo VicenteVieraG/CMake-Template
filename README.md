@@ -68,7 +68,7 @@ The easiest way to install these dependencies is using a package manager. Here a
 - [Chocolately](https://community.chocolatey.org)
 
 ```shell
-cmake -S . -B build -DENABLE_CLANG_TIDY=ON -DENABLE_CLANG_TIDY_GLOBAL=ON
+cmake -S . -B build -DENABLE_CLANG_TIDY=ON
 cmake --build build
 ```
 
@@ -83,7 +83,6 @@ Use these options at configure time (for example with `-D<OPTION>=ON`):
 | `BUILD_TESTS` | `OFF` | Enables the test tree and CTest integration (`enable_testing()`). |
 | `BUILD_TESTS_WITH_MAIN` | `ON` | Builds Catch2 tests with a custom `main` function (used by the tests subtree). |
 | `ENABLE_CLANG_TIDY` | `OFF` | Enables clang-tidy support for targets using `target_enable_clang_tidy(<target>)`. |
-| `ENABLE_CLANG_TIDY_GLOBAL` | `OFF` | Enables clang-tidy for all C/C++ targets globally (requires `ENABLE_CLANG_TIDY=ON`). |
 | `ENABLE_WARNINGS` | `ON` | Includes compiler warning helpers and allows applying warning profiles to targets. |
 | `ENABLE_WARNINGS_AS_ERRORS` | `OFF` | Promotes warnings to errors when used with warning helpers. |
 | `ENABLE_SANITIZERS` | `OFF` | Enables compiler/linker sanitizer flags through the sanitizer utility module. |
@@ -93,8 +92,8 @@ Use these options at configure time (for example with `-D<OPTION>=ON`):
 ### Utility modules in `cmake/`
 #### `cmake/ClangTidy.cmake`
 - `target_enable_clang_tidy(<target>)`: Applies clang-tidy to one target when `ENABLE_CLANG_TIDY=ON`.
-- `enable_global_clang_tidy()`: Activates `CMAKE_C_CLANG_TIDY` and `CMAKE_CXX_CLANG_TIDY` for all targets when global mode is enabled.
-- Validates arguments/targets and fails fast if `clang-tidy` is requested but not installed.
+- Configures both `C_CLANG_TIDY` and `CXX_CLANG_TIDY` target properties.
+- Validates argument count and target existence, and fails fast if `clang-tidy` is requested but not installed.
 
 #### `cmake/Warnings.cmake`
 - `target_set_warnings(<target> <enabled> <enabled_as_errors>)`: Applies warning presets per compiler.
