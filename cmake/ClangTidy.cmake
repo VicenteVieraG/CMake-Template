@@ -36,32 +36,10 @@ function(target_enable_clang_tidy TARGET_NAME)
 
     _target_enable_clang_tidy_resolve(_target_enable_clang_tidy_executable)
     set_target_properties("${TARGET_NAME}" PROPERTIES
+        C_CLANG_TIDY
+        "${_target_enable_clang_tidy_executable};--checks=-clang-diagnostic-*"
         CXX_CLANG_TIDY
         "${_target_enable_clang_tidy_executable};--checks=-clang-diagnostic-*"
     )
     message(STATUS "clang-tidy enabled for target: ${TARGET_NAME}")
-endfunction()
-
-function(enable_global_clang_tidy)
-    if(NOT ENABLE_CLANG_TIDY_GLOBAL)
-        return()
-    endif()
-
-    if(NOT ENABLE_CLANG_TIDY)
-        message(FATAL_ERROR
-            "ENABLE_CLANG_TIDY_GLOBAL requires ENABLE_CLANG_TIDY=ON. "
-            "Configure with -DENABLE_CLANG_TIDY=ON -DENABLE_CLANG_TIDY_GLOBAL=ON."
-        )
-    endif()
-
-    _target_enable_clang_tidy_resolve(_target_enable_clang_tidy_executable)
-    set(CMAKE_C_CLANG_TIDY
-        "${_target_enable_clang_tidy_executable};--checks=-clang-diagnostic-*"
-        PARENT_SCOPE
-    )
-    set(CMAKE_CXX_CLANG_TIDY
-        "${_target_enable_clang_tidy_executable};--checks=-clang-diagnostic-*"
-        PARENT_SCOPE
-    )
-    message(STATUS "clang-tidy enabled globally for C and C++ targets.")
 endfunction()

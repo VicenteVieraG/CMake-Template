@@ -140,7 +140,7 @@ This build kit can only be installed through the Visual Studio installer. You ne
   - [Visual Studio official website](https://visualstudio.microsoft.com/es/downloads/)
 
 ### Clang-Tidy (Optional)
-Linter for C/C++ source files. This template include an option to enable global or per-target Clang-tidy linter analisys.
+Linter for C/C++ source files. This template includes an option to enable per-target Clang-tidy analysis via `ENABLE_CLANG_TIDY`.
 - __apt__
   ```bash
   sudo apt update
