@@ -12,10 +12,9 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Create binary outputs at ./build/bin
+# Configuration to set binary output and modules directory.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-# Set the module path to include custom CMake modules (.cmake files)
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
 # Options
 option(BUILD_TESTS "Build Catch2 unit tests." OFF)
@@ -24,10 +23,10 @@ option(ENABLE_CLANG_TIDY "Enable clang-tidy static analysis." OFF)
 option(ENABLE_CLANG_TIDY_GLOBAL "Enable clang-tidy for all C/C++ targets globally." OFF)
 option(ENABLE_WARNINGS "Enable compiler warnings." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable compiler warnings as errors." OFF)
-option(ENABLE_SANITIZERS "Enable a set of sanitizers" OFF)
-set(SANITIZER_PRESET "default" CACHE STRING "Sanitizer preset to enable")
+option(ENABLE_SANITIZERS "Enable a set of sanitizers." OFF)
+set(SANITIZER_PRESET "default" CACHE STRING "Sanitizer preset to enable.")
 set_property(CACHE SANITIZER_PRESET PROPERTY STRINGS default thread memory leak)
-option(ENABLE_LTO_GLOBALY "Enable LTO/IPO globally for Release and RelWithDebInfo targets" OFF)
+option(ENABLE_LTO_GLOBALY "Enable LTO/IPO globally for Release and RelWithDebInfo targets." OFF)
 
 # Modules include
 include(Docs)
