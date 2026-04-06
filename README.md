@@ -67,10 +67,108 @@ The easiest way to install these dependencies is using a package manager. Here a
 - [Winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)
 - [Chocolately](https://community.chocolatey.org)
 
-```shell
-cmake -S . -B build -DENABLE_CLANG_TIDY=ON
-cmake --build build
-```
+### CMake
+CMake is the build system and base of the template. A build system is a tool for automating the process of building a project. It handles the compilation of source code, linking of libraries, and other tasks required to create an executable or library.
+
+You can install CMake in different ways:
+- __apt__
+  ```bash
+  sudo apt update
+  sudo apt install cmake -y
+  ```
+- __Scoop__
+  ```shell
+  scoop bucket add main
+  scoop install main/cmake
+  ```
+- __Winget__
+  ```shell
+  winget install -e --id Kitware.CMake
+  ```
+- __Chocolately__
+  ```shell
+  choco install cmake
+  ```
+- __Manual installation__
+  - [CMake official web page](https://cmake.org/download/)
+
+### Toolchains/Compilers
+CMake requires a build kit to create all the necessary files, folders and configurations for the project. The build kits include a C/C++ compiler, linker, debugger and other tools that are necessary for the project to be built.
+
+#### MinGW (Windows Only)
+- __Scoop__
+  ```shell
+    scoop bucket add main
+    scoop install main/mingw
+  ```
+- __Chocolately__
+  ```shell
+    choco install mingw
+  ```
+- __Manual installation__
+  - [Official website](https://www.mingw-w64.org)
+
+#### Clang (LLVM)
+- __apt__
+  ```bash
+  sudo apt update
+  sudo apt install clang clangd -y
+  ```
+- __Scoop__
+  ```shell
+    scoop bucket add main
+    scoop install main/llvm
+  ```
+- __Winget__
+  ```shell
+  winget install -e --id LLVM.LLVM
+  ```
+- __Chocolately__
+  ```shell
+    choco install llvm
+  ```
+- __Manual installation__
+  - [Official website](https://clang.llvm.org)
+
+#### MSCV (Windows Only)
+This build kit can only be installed through the Visual Studio installer. You need to install Visual Studio and select the descktop development with C++ workload or manually select the MSVC package in the Visual Studio installer.
+- Download Visual Studio
+  - Winget
+    ```shell
+      winget install -e --id Microsoft.VisualStudio.2022.Community.Preview
+    ```
+  - [Visual Studio official website](https://visualstudio.microsoft.com/es/downloads/)
+
+### Clang-Tidy (Optional)
+Linter for C/C++ source files. This template includes an option to enable per-target Clang-tidy analysis via `ENABLE_CLANG_TIDY`.
+- __apt__
+  ```bash
+  sudo apt update
+  sudo apt install clang-tidy -y
+  ```
+- included in [LLVM toolchain](#clang-llvm) for Windows.
+
+### Doxygen (Optional)
+Documentation generated automaticly from comments in code. It generates a wiki web page with all the documentation from the project.
+- __apt__
+  ```bash
+  sudo apt update
+  sudo apt install doxygen -y
+  ```
+- __Scoop__
+  ```shell
+  scoop install doxygen
+  ```
+- __Winget__
+  ```shell
+  winget install -e --id DimitriVanHeesch.Doxygen
+  ```
+- __Chocolately__
+  ```shell
+  choco install doxygen.install
+  ```
+- __Manual Instalation__
+  [Link to official web page](https://www.doxygen.nl/index.html)
 
 ## Advanced Features
 The template ships with reusable CMake utility modules under [`cmake/`](cmake/) and a set of root options in [`CMakeLists.txt`](CMakeLists.txt) that let you enable tooling, diagnostics, and build optimizations.
@@ -78,16 +176,16 @@ The template ships with reusable CMake utility modules under [`cmake/`](cmake/) 
 ### Root CMake options (`CMakeLists.txt`)
 Use these options at configure time (for example with `-D<OPTION>=ON`):
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `BUILD_TESTS` | `OFF` | Enables the test tree and CTest integration (`enable_testing()`). |
-| `BUILD_TESTS_WITH_MAIN` | `ON` | Builds Catch2 tests with a custom `main` function (used by the tests subtree). |
-| `ENABLE_CLANG_TIDY` | `OFF` | Enables clang-tidy support for targets using `target_enable_clang_tidy(<target>)`. |
-| `ENABLE_WARNINGS` | `ON` | Enables compiler warning profiles for targets using `target_set_warnings(<target> <enabled_as_errors>)`. |
-| `ENABLE_WARNINGS_AS_ERRORS` | `OFF` | Promotes warnings to errors when used with `target_set_warnings()`. |
-| `ENABLE_SANITIZERS` | `OFF` | Enables compiler/linker sanitizer flags through the sanitizer utility module. |
-| `SANITIZER_PRESET` | `default` | Selects sanitizer profile: `default`, `thread`, `memory`, `leak`. |
-| `ENABLE_LTO_GLOBALY` | `OFF` | Enables IPO/LTO globally for `Release` and `RelWithDebInfo` when supported. |
+| Option                       | Default   | Description                                                                                                     |
+| ---------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
+| `BUILD_TESTS`                | `OFF`     | Enables the test tree and CTest integration (`enable_testing()`).                                               |
+| `BUILD_TESTS_WITH_MAIN`      | `ON`      | Builds Catch2 tests with a custom `main` function (used by the tests subtree).                                  |
+| `ENABLE_CLANG_TIDY`          | `OFF`     | Enables clang-tidy support for targets using `target_enable_clang_tidy(<target>)`.                              |
+| `ENABLE_WARNINGS`            | `ON`      | Enables compiler warning profiles for targets using `target_set_warnings(<target> <enabled_as_errors>)`.        |
+| `ENABLE_WARNINGS_AS_ERRORS`  | `OFF`     | Promotes warnings to errors when used with `target_set_warnings()`.                                             |
+| `ENABLE_SANITIZERS`          | `OFF`     | Enables sanitizer helpers so targets can opt into compiler/linker sanitizer flags.                              |
+| `SANITIZER_PRESET`           | `default` | Default sanitizer profile used by `target_enable_sanitizers()`: `default`, `thread`, `memory`, `leak`.          |
+| `ENABLE_LTO_GLOBALY`         | `OFF`     | Enables IPO/LTO globally for `Release` and `RelWithDebInfo` when supported.                                     |
 
 ### Utility modules in `cmake/`
 #### `cmake/ClangTidy.cmake`
@@ -102,12 +200,16 @@ Use these options at configure time (for example with `-D<OPTION>=ON`):
   - Clang/GCC: `-Wall`, `-Wextra`, `-Wpedantic`, and optionally `-Werror`
 
 #### `cmake/Sanitizer.cmake`
-- `enable_sanitizers()`: Enables compile and link sanitizer flags based on compiler and `SANITIZER_PRESET`.
+- `target_enable_sanitizers(<target> [preset])`: Enables sanitizer flags for a specific target. Uses `SANITIZER_PRESET` by default or an explicit per-target preset when provided.
+- `enable_sanitizers([preset])`: Compatibility helper that still enables sanitizer flags globally for the current directory tree.
 - Supported presets:
   - `default` (MSVC: `address`; Clang/GCC: `address`, `undefined`)
   - `thread` (Clang/GCC)
   - `memory` (Clang)
   - `leak` (Clang/GCC)
+- Notes:
+  - Executable, shared, module, and interface targets receive both compile and link flags.
+  - Static and object libraries receive compile flags only, so the final linked target should also enable sanitizers.
 
 #### `cmake/LTO.cmake`
 - `target_enable_lto(<target>)`: Enables IPO/LTO for a specific target in `Release` and `RelWithDebInfo`.
@@ -134,6 +236,12 @@ cmake -S . -B build -DENABLE_WARNINGS=ON -DENABLE_WARNINGS_AS_ERRORS=ON
 Enable sanitizers with the thread preset:
 ```shell
 cmake -S . -B build -DENABLE_SANITIZERS=ON -DSANITIZER_PRESET=thread
+```
+
+Then opt targets into the configured sanitizer preset:
+```cmake
+target_enable_sanitizers(${CMAKE_PROJECT_NAME})
+target_enable_sanitizers(tests leak)
 ```
 
 Enable global IPO/LTO for release-like builds:

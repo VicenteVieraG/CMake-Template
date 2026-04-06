@@ -5,6 +5,7 @@ if(BUILD_TESTS)
         add_subdirectory(${CATCH2_DIR})
         add_executable(tests main.cpp)
         target_enable_clang_tidy(tests)
+        target_enable_sanitizers(tests)
         target_include_directories(tests PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
         if(BUILD_TESTS_WITH_MAIN)
