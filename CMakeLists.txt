@@ -28,20 +28,16 @@ set_property(CACHE SANITIZER_PRESET PROPERTY STRINGS default thread memory leak)
 option(ENABLE_LTO_GLOBALY "Enable LTO/IPO globally for Release and RelWithDebInfo targets." OFF)
 
 # Modules include
+include(LTO)
 include(Docs)
+include(Warnings)
+include(Sanitizer)
 include(ClangTidy)
+enable_sanitizers()
 if(BUILD_TESTS)
     include(CTest)
     enable_testing()
 endif()
-include(Warnings)
-if(ENABLE_SANITIZERS)
-    include(Sanitizer)
-    enable_sanitizers()
-else()
-    message(STATUS "Sanitizers disabled.")
-endif()
-include(LTO)
 
 # Subdirectories
 #! NOTE: The add_subdirectory order matters

@@ -83,8 +83,8 @@ Use these options at configure time (for example with `-D<OPTION>=ON`):
 | `BUILD_TESTS` | `OFF` | Enables the test tree and CTest integration (`enable_testing()`). |
 | `BUILD_TESTS_WITH_MAIN` | `ON` | Builds Catch2 tests with a custom `main` function (used by the tests subtree). |
 | `ENABLE_CLANG_TIDY` | `OFF` | Enables clang-tidy support for targets using `target_enable_clang_tidy(<target>)`. |
-| `ENABLE_WARNINGS` | `ON` | Includes compiler warning helpers and allows applying warning profiles to targets. |
-| `ENABLE_WARNINGS_AS_ERRORS` | `OFF` | Promotes warnings to errors when used with warning helpers. |
+| `ENABLE_WARNINGS` | `ON` | Enables compiler warning profiles for targets using `target_set_warnings(<target> <enabled_as_errors>)`. |
+| `ENABLE_WARNINGS_AS_ERRORS` | `OFF` | Promotes warnings to errors when used with `target_set_warnings()`. |
 | `ENABLE_SANITIZERS` | `OFF` | Enables compiler/linker sanitizer flags through the sanitizer utility module. |
 | `SANITIZER_PRESET` | `default` | Selects sanitizer profile: `default`, `thread`, `memory`, `leak`. |
 | `ENABLE_LTO_GLOBALY` | `OFF` | Enables IPO/LTO globally for `Release` and `RelWithDebInfo` when supported. |
@@ -96,7 +96,7 @@ Use these options at configure time (for example with `-D<OPTION>=ON`):
 - Validates argument count and target existence, and fails fast if `clang-tidy` is requested but not installed.
 
 #### `cmake/Warnings.cmake`
-- `target_set_warnings(<target> <enabled> <enabled_as_errors>)`: Applies warning presets per compiler.
+- `target_set_warnings(<target> <enabled_as_errors>)`: Applies warning presets per compiler when `ENABLE_WARNINGS=ON`.
 - Uses:
   - MSVC: `/W4`, `/permissive-`, and optionally `/WX`
   - Clang/GCC: `-Wall`, `-Wextra`, `-Wpedantic`, and optionally `-Werror`

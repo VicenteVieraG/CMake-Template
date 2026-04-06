@@ -36,7 +36,7 @@ if(ENABLE_LTO_GLOBALY)
         message(WARNING "LTO/IPO requested but not supported: ${_lto_output}")
     endif()
 else()
-    message(STATUS "LTO/IPO global enablement is disabled. Use target_enable_lto() for per-target IPO in Release and RelWithDebInfo.")
+    message(STATUS "LTO/IPO is disabled globally.")
 endif()
 
 function(target_enable_lto TARGET)
