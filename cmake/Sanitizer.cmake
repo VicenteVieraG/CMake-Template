@@ -111,31 +111,6 @@ function(_sanitizer_target_links TARGET_NAME RESULT_VAR)
     endif()
 endfunction()
 
-function(enable_sanitizers)
-    if(NOT ENABLE_SANITIZERS)
-        message(STATUS "Sanitizers disabled.")
-        return()
-    endif()
-
-    if(NOT (ARGC EQUAL 0 OR ARGC EQUAL 1))
-        message(FATAL_ERROR "enable_sanitizers expects no arguments or a single preset name.")
-    endif()
-
-    set(_requested_preset "")
-    if(ARGC EQUAL 1)
-        set(_requested_preset "${ARGV0}")
-    endif()
-
-    _sanitizer_resolve_flags("${_requested_preset}" _preset_key _sanitizers _sanitizer_flags)
-    if(NOT _sanitizer_flags)
-        return()
-    endif()
-
-    add_compile_options(${_sanitizer_flags})
-    add_link_options(${_sanitizer_flags})
-    message(STATUS "Sanitizers enabled globally with preset '${_preset_key}': ${_sanitizers}")
-endfunction()
-
 function(target_enable_sanitizers TARGET_NAME)
     if(NOT (ARGC EQUAL 1 OR ARGC EQUAL 2))
         message(FATAL_ERROR

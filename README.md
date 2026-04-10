@@ -179,9 +179,9 @@ Use these options at configure time (for example with `-D<OPTION>=ON`):
 | Option                       | Default   | Description                                                                                                     |
 | ---------------------------- | --------- | --------------------------------------------------------------------------------------------------------------- |
 | `BUILD_TESTS`                | `OFF`     | Enables the test tree and CTest integration (`enable_testing()`).                                               |
-| `BUILD_TESTS_WITH_MAIN`      | `ON`      | Builds Catch2 tests with a custom `main` function (used by the tests subtree).                                  |
+| `BUILD_TESTS_WITH_MAIN`      | `OFF`      | Builds Catch2 tests with a custom `main` function (used by the tests subtree).                                  |
 | `ENABLE_CLANG_TIDY`          | `OFF`     | Enables clang-tidy support for targets using `target_enable_clang_tidy(<target>)`.                              |
-| `ENABLE_WARNINGS`            | `ON`      | Enables compiler warning profiles for targets using `target_set_warnings(<target> <enabled_as_errors>)`.        |
+| `ENABLE_WARNINGS`            | `OFF`      | Enables compiler warning profiles for targets using `target_set_warnings(<target> <enabled_as_errors>)`.        |
 | `ENABLE_WARNINGS_AS_ERRORS`  | `OFF`     | Promotes warnings to errors when used with `target_set_warnings()`.                                             |
 | `ENABLE_SANITIZERS`          | `OFF`     | Enables sanitizer helpers so targets can opt into compiler/linker sanitizer flags.                              |
 | `SANITIZER_PRESET`           | `default` | Default sanitizer profile used by `target_enable_sanitizers()`: `default`, `thread`, `memory`, `leak`.          |
@@ -201,7 +201,6 @@ Use these options at configure time (for example with `-D<OPTION>=ON`):
 
 #### `cmake/Sanitizer.cmake`
 - `target_enable_sanitizers(<target> [preset])`: Enables sanitizer flags for a specific target. Uses `SANITIZER_PRESET` by default or an explicit per-target preset when provided.
-- `enable_sanitizers([preset])`: Compatibility helper that still enables sanitizer flags globally for the current directory tree.
 - Supported presets:
   - `default` (MSVC: `address`; Clang/GCC: `address`, `undefined`)
   - `thread` (Clang/GCC)
