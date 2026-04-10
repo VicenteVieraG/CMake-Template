@@ -1,24 +1,24 @@
 include_guard(GLOBAL)
 
-function(_target_enable_clang_tidy_resolve EXECUTABLE_VAR)
-    if(DEFINED TARGET_ENABLE_CLANG_TIDY_EXECUTABLE)
-        set(${EXECUTABLE_VAR} "${TARGET_ENABLE_CLANG_TIDY_EXECUTABLE}" PARENT_SCOPE)
+function(_resolve_clang_tidy_executable_path EXECUTABLE_VAR)
+    if(DEFINED CLANG_TIDY_EXECUTABLE)
+        set(${EXECUTABLE_VAR} "${CLANG_TIDY_EXECUTABLE}" PARENT_SCOPE)
         return()
     endif()
 
-    find_program(_target_enable_clang_tidy_executable NAMES clang-tidy NO_CACHE)
-    if(NOT _target_enable_clang_tidy_executable)
+    find_program(CLANG_TIDY_EXECUTABLE_PATH NAMES clang-tidy NO_CACHE)
+    if(NOT CLANG_TIDY_EXECUTABLE_PATH)
         message(FATAL_ERROR
             "ENABLE_CLANG_TIDY is ON, but clang-tidy was not found. "
             "Install clang-tidy or configure with -DENABLE_CLANG_TIDY=OFF."
         )
     endif()
 
-    set(TARGET_ENABLE_CLANG_TIDY_EXECUTABLE
-        "${_target_enable_clang_tidy_executable}"
-        CACHE INTERNAL "Resolved clang-tidy executable for target_enable_clang_tidy()."
+    set(CLANG_TIDY_EXECUTABLE
+        "${CLANG_TIDY_EXECUTABLE_PATH}"
+        CACHE INTERNAL "Resolved clang-tidy executable path for target_enable_clang_tidy()."
     )
-    set(${EXECUTABLE_VAR} "${TARGET_ENABLE_CLANG_TIDY_EXECUTABLE}" PARENT_SCOPE)
+    set(${EXECUTABLE_VAR} "${CLANG_TIDY_EXECUTABLE}" PARENT_SCOPE)
 endfunction()
 
 function(target_enable_clang_tidy TARGET_NAME)
@@ -34,12 +34,12 @@ function(target_enable_clang_tidy TARGET_NAME)
         return()
     endif()
 
-    _target_enable_clang_tidy_resolve(_target_enable_clang_tidy_executable)
+    _resolve_clang_tidy_executable_path(CLANG_TIDY_EXE)
     set_target_properties("${TARGET_NAME}" PROPERTIES
         C_CLANG_TIDY
-        "${_target_enable_clang_tidy_executable};--checks=-clang-diagnostic-*"
+        "${CLANG_TIDY_EXE};--checks=-clang-diagnostic-*"
         CXX_CLANG_TIDY
-        "${_target_enable_clang_tidy_executable};--checks=-clang-diagnostic-*"
+        "${CLANG_TIDY_EXE};--checks=-clang-diagnostic-*"
     )
     message(STATUS "clang-tidy enabled for target: ${TARGET_NAME}")
 endfunction()
