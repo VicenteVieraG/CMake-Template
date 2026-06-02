@@ -18,7 +18,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
 # Set Sanitizer preset options
 set(SANITIZER_PRESET "default" CACHE STRING "Default sanitizer preset used by sanitizer helpers.")
-set_property(CACHE SANITIZER_PRESET PROPERTY STRINGS default thread memory leak)
+set_property(CACHE SANITIZER_PRESET PROPERTY STRINGS default debug thread memory leak)
 
 # Options
 option(BUILD_TESTS "Build Catch2 unit tests." OFF)

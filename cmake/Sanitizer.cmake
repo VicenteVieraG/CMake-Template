@@ -2,6 +2,7 @@ include_guard(GLOBAL)
 
 set(_sanitizer_supported_presets
     default
+    debug
     thread
     memory
     leak
@@ -24,6 +25,7 @@ function(_sanitizer_resolve_flags PRESET PRESET_KEY_VAR SANITIZERS_VAR FLAGS_VAR
     set(MSVC_DEFAULT_SANITIZERS
         address
     )
+    set(MSVC_DEBUG_SANITIZERS)
     set(MSVC_THREAD_SANITIZERS)
     set(MSVC_MEMORY_SANITIZERS)
     set(MSVC_LEAK_SANITIZERS)
@@ -31,6 +33,11 @@ function(_sanitizer_resolve_flags PRESET PRESET_KEY_VAR SANITIZERS_VAR FLAGS_VAR
     set(CLANG_DEFAULT_SANITIZERS
         address
         undefined
+    )
+    set(CLANG_DEBUG_SANITIZERS
+        address
+        undefined
+        leak
     )
     set(CLANG_THREAD_SANITIZERS
         thread
@@ -45,6 +52,11 @@ function(_sanitizer_resolve_flags PRESET PRESET_KEY_VAR SANITIZERS_VAR FLAGS_VAR
     set(GCC_DEFAULT_SANITIZERS
         address
         undefined
+    )
+    set(GCC_DEBUG_SANITIZERS
+        address
+        undefined
+        leak
     )
     set(GCC_THREAD_SANITIZERS
         thread

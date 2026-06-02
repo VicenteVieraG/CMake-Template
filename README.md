@@ -184,7 +184,7 @@ Use these options at configure time (for example with `-D<OPTION>=ON`):
 | `ENABLE_WARNINGS`            | `OFF`      | Enables compiler warning profiles for targets using `target_set_warnings(<target> <enabled_as_errors>)`.        |
 | `ENABLE_WARNINGS_AS_ERRORS`  | `OFF`     | Promotes warnings to errors when used with `target_set_warnings()`.                                             |
 | `ENABLE_SANITIZERS`          | `OFF`     | Enables sanitizer helpers so targets can opt into compiler/linker sanitizer flags.                              |
-| `SANITIZER_PRESET`           | `default` | Default sanitizer profile used by `target_enable_sanitizers()`: `default`, `thread`, `memory`, `leak`.          |
+| `SANITIZER_PRESET`           | `default` | Default sanitizer profile used by `target_enable_sanitizers()`: `default`, `debug`, `thread`, `memory`, `leak`. |
 | `ENABLE_LTO_GLOBALY`         | `OFF`     | Enables IPO/LTO globally for `Release` and `RelWithDebInfo` when supported.                                     |
 
 ### Utility modules in `cmake/`
@@ -203,6 +203,7 @@ Use these options at configure time (for example with `-D<OPTION>=ON`):
 - `target_enable_sanitizers(<target> [preset])`: Enables sanitizer flags for a specific target. Uses `SANITIZER_PRESET` by default or an explicit per-target preset when provided.
 - Supported presets:
   - `default` (MSVC: `address`; Clang/GCC: `address`, `undefined`)
+  - `debug` (Clang/GCC: `address`, `undefined`, `leak`)
   - `thread` (Clang/GCC)
   - `memory` (Clang)
   - `leak` (Clang/GCC)
@@ -232,9 +233,9 @@ Enable warnings + warnings as errors:
 cmake -S . -B build -DENABLE_WARNINGS=ON -DENABLE_WARNINGS_AS_ERRORS=ON
 ```
 
-Enable sanitizers with the thread preset:
+Enable sanitizers with the debug preset:
 ```shell
-cmake -S . -B build -DENABLE_SANITIZERS=ON -DSANITIZER_PRESET=thread
+cmake -S . -B build -DENABLE_SANITIZERS=ON -DSANITIZER_PRESET=debug
 ```
 
 Then opt targets into the configured sanitizer preset:
