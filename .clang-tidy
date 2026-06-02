@@ -1,33 +1,57 @@
 ---
 Checks: >-
+  -*,
+  -clang-diagnostic-*,
   clang-analyzer-*,
   bugprone-*,
-  -bugprone-easily-swappable-parameters,
-  -bugprone-exception-escape,
-  -bugprone-implicit-widening-of-multiplication-result,
-  -bugprone-narrowing-conversions,
   performance-*,
-  portability-*,
-  modernize-use-nullptr,
-  modernize-use-override,
-  modernize-use-using,
-  -modernize-pass-by-value,
+  modernize-*,
+  -modernize-use-auto,
   -modernize-use-trailing-return-type,
+  misc-definitions-in-headers,
+  misc-misleading-bidirectional,
+  misc-misleading-identifier,
+  misc-misplaced-const,
+  misc-new-delete-overloads,
+  misc-non-copyable-objects,
+  misc-redundant-expression,
+  misc-static-assert,
+  misc-throw-by-value-catch-by-reference,
+  misc-unconventional-assign-operator,
+  misc-uniqueptr-reset-release,
+  misc-unused-alias-decls,
+  misc-unused-parameters,
+  misc-unused-using-decls,
+  readability-braces-around-statements,
+  readability-const-return-type,
+  readability-container-size-empty,
+  readability-delete-null-pointer,
   readability-duplicate-include,
   readability-else-after-return,
+  readability-function-cognitive-complexity,
+  readability-inconsistent-declaration-parameter-name,
+  readability-make-member-function-const,
   readability-misleading-indentation,
+  readability-redundant-control-flow,
   readability-redundant-declaration,
+  readability-redundant-function-ptr-dereference,
   readability-redundant-member-init,
+  readability-redundant-preprocessor,
+  readability-redundant-smartptr-get,
+  readability-redundant-string-cstr,
+  readability-redundant-string-init,
   readability-simplify-boolean-expr,
-  -readability-function-cognitive-complexity,
-  -readability-function-size,
-  -readability-identifier-length,
-  -readability-magic-numbers
-WarningsAsErrors: ''
-# Only emit diagnostics from first-party headers. This excludes vendored Catch2
-# and generated files under the build directory.
-HeaderFilterRegex: '^.*(/app/|/src/|/includes/|/config/|/tests/(?!catch2/)).*$'
-FormatStyle: none
+  readability-static-accessed-through-instance,
+  readability-static-definition-in-anonymous-namespace,
+  readability-string-compare,
+  readability-uniqueptr-delete-release,
+  readability-use-anyofallof
+WarningsAsErrors: 'clang-analyzer-*,bugprone-*,performance-*'
+# Only emit diagnostics from first-party headers; vendored/generated paths are omitted.
+HeaderFilterRegex: '^/home/vicente/Source/CMake-Template/(app|src|includes|config)/'
+FormatStyle: file
 SystemHeaders: false
-CheckOptions: []
+CheckOptions:
+  - key: readability-function-cognitive-complexity.Threshold
+    value: '30'
 ...
