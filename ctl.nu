@@ -73,3 +73,13 @@ def "main addModule" [module: string shared: bool = false private: bool = false]
 def "main linkModule" [linkModule: string targetModule: string private: bool = false] {
     print uwu;
 }
+
+def "main add gitSubmodule" [name: string gitURL: string] {
+    git submodule add --force --name $name $gitURL external/($name);
+}
+
+def "main remove gitSubmodule" [name: string] {
+    git submodule deinit --force external/($name);
+    git rm --force external/($name);
+    rm --recursive --force .git/modules/($name);
+}
