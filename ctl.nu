@@ -4,7 +4,7 @@ def main [] {
     print "Framework's Command Line Tool";
 }
 
-def "main addModule" [module: string shared: bool = false private: bool = false] {
+def "main add module" [module: string shared: bool = false private: bool = false] {
     let src_dir: string = (['src' $module] | path join);
     let includes_dir: string = (['includes' $module] | path join);
     let parent_src_CMakeLists: string = (['src' 'CMakeLists.txt'] | path join);
